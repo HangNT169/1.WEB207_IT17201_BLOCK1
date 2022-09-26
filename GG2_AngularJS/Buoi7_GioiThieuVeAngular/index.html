@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myModule">
+  <!-- ng-app: Neu co tham so : ng-app="abc" => abc: module -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body ng-controller="myController">
+    <!-- 1. Module va cach tao 1 module
+        - module : la 1 container : thung chua cac thanh phan khac nhau:
+        filters, controllers, service, directive...
+        Cach tao 1 module:
+            var myApp = angular.module("tenModule",[]);
+            Tham so 1: Ten module
+            Tham so 2: Cac DI phu thuoc vao
+        2. Cach tao controller
+            myApp.controller("tenController",hamXuLy);
+     -->
+    <div>{{message}}</div>
+    {{message}}
+    <br />
+    FirstName :{{e.firstName}}
+    <br />
+    LastName :{{e.lastName}}
+    <br />
+    Gender :{{e.gender}}
+    <br />
+    {{i[0]}}
+    <br />
+    {{i[2]}}u]
+    <script src="../js/angular.js"></script>
+    <script src="./index.js"></script>
+  </body>
+</html>
