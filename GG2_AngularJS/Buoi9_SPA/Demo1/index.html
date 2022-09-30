@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      h1 {
+        font-size: 50px;
+      }
+    </style>
+  </head>
+
+  <body ng-app="demo_routing">
+    <ul>
+      <li><a href="#1">Blue</a></li>
+      <li><a href="#2">Red</a></li>
+      <li><a href="#3">Green</a></li>
+    </ul>
+    <div ng-view></div>
+    <!-- ng-view: đặt chỗ cho các template giao diện hiẹn thị
+    khi có yêu cầu. Bản chất nó là giao diện được yêu cầu nạp vào view -->
+    <!-- De su dung dc SPA can them thu vien: angular-router.js -->
+    <script src="../../js/angular.js"></script>
+    <script src="../../js/angular-route.js"></script>
+    <script>
+      let app = angular.module("demo_routing", ["ngRoute"]);
+      app.config(function ($routeProvider, $locationProvider) {
+        $locationProvider.hashPrefix(""); // xoa khoang thua cua url
+        // giong switch case
+        $routeProvider
+          .when("/1", {
+            // template: `<h1>hihihihi</h1>
+            // <br/><h2>adsfsdf</h2>`,
+            templateUrl: "pages/blue.html",
+          })
+          .when("/2", {
+            template: `<h1>hihihi1</h1>`,
+          })
+          .when("/3", {
+            template: `<h1>hihihi2</h1>`,
+          })
+          .otherwise({
+            redirectTo: "/", // khi sai se quay lai trang chu
+          });
+      });
+    </script>
+  </body>
+</html>
