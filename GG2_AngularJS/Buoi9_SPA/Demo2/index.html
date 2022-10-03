@@ -29,6 +29,9 @@
     <script src="../Demo2/controllers/RedController.js"></script>
     <script>
       let app = angular.module("demo_routing", ["ngRoute"]);
+      app.controller("blueController", blueController);
+      app.controller("redController", redController);
+      app.controller("greenController", greenController);
       app.config(function ($routeProvider, $locationProvider) {
         $locationProvider.hashPrefix(""); // xoa khoang thua cua url
         // giong switch case
@@ -50,9 +53,6 @@
             redirectTo: "/", // khi sai se quay lai trang chu
           });
       });
-      app.controller("blueController", blueController);
-      app.controller("redController", redController);
-      app.controller("greenController", greenController);
     </script>
   </body>
 </html>
