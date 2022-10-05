@@ -13,11 +13,7 @@
   </head>
 
   <body ng-app="demo_routing">
-    <ul>
-      <li><a href="#blue/HangNT169">Blue</a></li>
-      <li><a href="#red">Red</a></li>
-      <li><a href="#green">Green</a></li>
-    </ul>
+    <nav ng-include="'layout/header.html'"></nav>
     <div ng-view></div>
     <!-- ng-view: đặt chỗ cho các template giao diện hiẹn thị
     khi có yêu cầu. Bản chất nó là giao diện được yêu cầu nạp vào view -->

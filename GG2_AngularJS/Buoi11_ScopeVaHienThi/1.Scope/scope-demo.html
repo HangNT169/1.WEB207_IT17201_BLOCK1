@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-App="myModule">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 1. Scope: La 1 đối tượng có nhiệm vụ giao tiếp giữa controller và view
+        - scope chứa thông tin là các dữ liệu có thể giống model : 
+        có thể là thuộc tính hoặc phương thức
+        2.Phạm vi hoạt động
+        - scope: giống biến cục bộ. Chỉ có giá trị trong scope 
+        và ở trong controller mà nó đăng ký
+        3. Rootscope 
+        - Giống biến toàn cục.
+        - Giông session ,localstorage 
+
+    -->
+    <div ng-controller="classController">{{message}}</div>
+    <div ng-controller="contentController">{{message}}</div>
+    {{message}}
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
