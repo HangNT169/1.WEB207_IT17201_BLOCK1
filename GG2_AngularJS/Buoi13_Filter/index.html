@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body ng-controller="myController">
+    <!-- 
+      1. Filter : currency,date,filter(search),limitTo,lowerCase
+        upperCase,orderBy....
+      2. Các dạng filter có sẵn 
+        - Cú pháp: {{myString|filter}}
+        VD:{{lastName|uppercase}} 
+      3. Tự custom filter
+        - Tự định nghĩa bằng directive ...
+    -->
+    <p>{{myNumber}}</p>
+    <p>{{myNumber | number :4}}</p>
+    <p>{{myNumber | currency :'$':4}}</p>
+
+    <p>{{now}}</p>
+    <p>{{now | date:'dd-MM-yyyy HH:mm:ss'}}</p>
+    <p>{{name |uppercase}}</p>
+    <p>{{name |lowercase}}</p>
+
+    <p>{{sv | json }}</p>
+    <ul>
+      <!-- limit to : ths1 : begin
+        => Lay ban ghi begin va ths1
+       -->
+      <li ng-repeat="item in arr | limitTo :4:3">{{item.ma}} - {{item.ten}}</li>
+    </ul>
+    Search <input type="text" ng-model="searchText" />
+    <table>
+      <thead>
+        <tr>
+          <td>Ma</td>
+          <td>Ten</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in arr | filter:searchText">
+          <td>{{item.ma}}</td>
+          <td>{{item.ten}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="./index.js"></script>
+  </body>
+</html>
