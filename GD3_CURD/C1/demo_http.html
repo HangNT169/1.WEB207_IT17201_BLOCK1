@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../GD1_Boostrap/css/bootstrap.min.css" />
+    <style>
+      .loading {
+        background: rgba(0, 0, 0, 0.5);
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+      }
+
+      .spinner-center {
+        top: 50%;
+        left: 50%;
+        position: absolute;
+      }
+    </style>
+  </head>
+
+  <body ng-app="demo_http">
+    <div ng-controller="myctrl">
+      <div ng-show="isLoading" class="loading">
+        <div
+          class="spinner-border text-primary spinner-center"
+          role="status"
+        ></div>
+      </div>
+      <div
+        ng-show="message.length != 0"
+        class="col-8 offset-2 alert {{ isSuccess ? 'alert-success' : 'alert-danger' }}"
+      >
+        {{ message }}
+      </div>
+      <form class="col-8 offset-2" ng-submit="onFormSubmit($event)">
+        <div class="form-group mt-3">
+          <label for="">Họ tên:</label>
+          <input class="form-control" type="text" ng-model="student.name" />
+        </div>
+        <div class="form-group mt-3">
+          <label for="">Mã SV</label>
+          <input class="form-control" type="text" ng-model="student.code" />
+        </div>
+        <div class="form-group mt-3">
+          <label for="">Chuyên ngành</label>
+          <input
+            class="form-control"
+            type="text"
+            ng-model="student.chuyen_nganh"
+          />
+        </div>
+        <div class="form-group mt-3">
+          <button class="btn btn-primary">Lưu</button>
+          <button class="btn btn-default ml-3">Xóa form</button>
+        </div>
+      </form>
+      <div class="col-8 offset-2">
+        <table class="table mt-3">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Họ tên</th>
+              <th>Mã SV</th>
+              <th>Chuyên ngành</th>
+              <th colspan="2">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="st in students">
+              <td>{{ st.id }}</td>
+              <td>{{ st.name }}</td>
+              <td>{{ st.code }}</td>
+              <td>{{ st.chuyen_nganh }}</td>
+              <td>
+                <button class="btn btn-primary">Sửa</button>
+              </td>
+              <td>
+                <button
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal_delete_{{ st.id }}"
+                  class="btn btn-danger"
+                >
+                  Xóa
+                </button>
+                <div
+                  class="modal fade"
+                  id="modal_delete_{{ st.id }}"
+                  tabindex="-1"
+                  aria-hidden="true"
+                >
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Xóa</h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">Xác nhận xóa?</div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Đóng
+                        </button>
+                        <button
+                          type="button"
+                          ng-click="onDelete($index)"
+                          class="btn btn-danger"
+                        >
+                          Xóa
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>
+      var app = angular.module("demo_http", []);
+      app.controller("myctrl", function ($scope, $http) {
+        $scope.student = {
+          id: "",
+          name: "",
+          code: "",
+          chuyen_nganh: "",
+        };
+        $scope.students = [];
+        $scope.isLoading = false;
+        $scope.isSuccess = true;
+        $scope.message = "";
+
+        const api = "https://620b061fbeee430017f38481.mockapi.io/students";
+        $scope.isLoading = true;
+        $http
+          .get(api) // Gửi request dạng GET lên API
+          .then(function (response) {
+            // console.log(response);
+            $scope.isLoading = false;
+            $scope.students = response.data;
+          })
+          .catch(function (error) {
+            console.log(error);
+            $scope.isLoading = false;
+          });
+
+        $scope.onFormSubmit = function (event) {
+          event.preventDefault();
+
+          // TODO:
+          // if (index == -1) {
+          //     // thêm mới
+          // } else {
+          //     // cập nhật
+          // }
+
+          // Gửi request dạng POST kèm dữ liệu tới API
+          $http.post(api, $scope.student).then(function (response) {
+            // Thông báo thành công
+            $scope.isSuccess = true;
+            $scope.message = "Thêm mới thành công";
+
+            // Thêm vào table
+            $scope.students.push(response.data);
+          });
+        };
+
+        $scope.onDelete = function (index) {
+          const id = $scope.students[index].id;
+          const apiDelete = api + "/" + id;
+          $http.delete(apiDelete).then(function (response) {
+            // Xóa trên table
+            $scope.students.splice(index, 1);
+          });
+        };
+      });
+    </script>
+  </body>
+</html>
