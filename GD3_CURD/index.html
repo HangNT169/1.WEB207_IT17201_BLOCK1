@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body ng-app="myApp">
+    <div ng-controller="myController">
+      <form id="form_create_product" ng-submit="onFormSubmit($event)">
+        <input
+          type="text"
+          value="{{product.id}}"
+          ng-model="product.id"
+          style="display: none"
+        />
+        <label>Ten san pham</label>
+        <input
+          type="text"
+          id="ten"
+          ng-model="product.ten"
+          value="{{product.ten}}"
+        />
+        <br />
+        <label>So luong</label>
+        <input
+          type="text"
+          id="soLuong"
+          ng-model="product.so_luong"
+          value="{{product.so_luong}}"
+        />
+        <br />
+        <label>Gia nhap</label>
+        <input
+          type="text"
+          id="giaNhap"
+          ng-model="product.gia_nhap"
+          value="{{product.gia_nhap}}"
+        />
+        <br />
+        <label>Gia ban</label>
+        <input
+          type="text"
+          id="giaBan"
+          ng-model="product.gia_ban"
+          value="{{product.gia_ban}}"
+        />
+        <br />
+        <label>Mieu ta</label>
+        <input
+          type="text"
+          id="mieuTa"
+          ng-model="product.mieu_ta"
+          value="{{product.mieu_ta}}"
+        />
+        <br />
+        <div>
+          <button type="submit">Them</button>
+          <button type="submit" ng-click="edit($index)">Sua</button>
+        </div>
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <td>Ma</td>
+            <td>Ten</td>
+            <td>So Luong</td>
+            <td>Gia nhap</td>
+            <td>Gia ban</td>
+            <td>Mieu ta</td>
+            <td>Edit</td>
+            <td>Delete</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="product in products">
+            <td>{{product.id}}</td>
+            <td>{{product.ten}}</td>
+            <td>{{product.so_luong}}</td>
+            <td>{{product.gia_nhap}}</td>
+            <td>{{product.gia_ban}}</td>
+            <td>{{product.mieu_ta}}</td>
+            <td>
+              <button type="button" ng-click="selectProduct(product)">
+                Sua
+              </button>
+            </td>
+            <td>
+              <button type="button" ng-click="delete(product)">Xoa</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="./index.js"></script>
+  </body>
+</html>
