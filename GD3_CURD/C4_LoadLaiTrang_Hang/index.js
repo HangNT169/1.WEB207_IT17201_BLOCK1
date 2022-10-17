@@ -51,6 +51,7 @@ myApp.controller("myController", function ($scope, $http, $window) {
   //   B2: Edit
   $scope.edit = function () {
     let id = $scope.product.id;
+    console.log($scope.product);
     $http
       .put(productAPI + "/" + id, $scope.product)
       .then(function () {
